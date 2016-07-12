@@ -1,27 +1,95 @@
-# Laravel PHP Framework
+# Laravel BDD with Behat, Mink, PHPUnit
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+This is my learning notes in steps.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Welcome to visit [{ oc.tech.notes }](https://devmanna.blogspot.com) and discuss with me.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Install Laravel Project
 
-## Official Documentation
+Laravel Installer
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+    laravel new laravel-behat
 
-## Contributing
+Composer
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+    composer create-project laravel/laravel laravel-behat --prefer-dist
 
-## Security Vulnerabilities
+## Install Behat, Mink, Mink-Extension, Behat-Laravel-Extension
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```
+composer require behat/behat behat/mink behat/mink-extension laracasts/behat-laravel-extension --dev
+```
 
-## License
+## Initialize Behat
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+```
+./vendor/bin/behat --init
+```
+
+### Create Behat Configuration File: `behat.yml`
+
+```
+default:
+    extensions:
+        Laracasts\Behat\ServiceContainer\BehatExtension: ~
+        Behat\MinkExtension\ServiceContainer\MinkExtension:
+            default_session: laravel
+            laravel: ~
+```
+
+### Create `.env.behat`
+
+This is for laravel environment setting in behat testing mode
+
+e.g.
+```
+APP_ENV=acceptance
+```
+
+## Enable MinkContext in `features/bootstrap/FeatureContext.php`
+
+```php
+use Behat\MinkExtension\Context\MinkContext;
+
+class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
+{
+    ...
+}
+```
+
+### Create `*.feature` file for testing
+
+This is the example.feature file for testing purpose
+
+```
+Feature: Example
+    In order to test Behat
+    I want to test some behat features
+
+Scenario: Visit Homepage
+    Given I am on homepage
+    Then I should see "Laravel 5"
+```
+
+## Execute Behat
+
+```
+./vendor/bin/behat
+```
+
+### Append Snippets
+
+```
+./vendor/bin/behat --append-snippets
+```
+
+
+## Learning Reference:
+
+- [Laravel 5 and behat: BFFs](https://laracasts.com/lessons/laravel-5-and-behat-bffs)
+- [Behat](http://docs.behat.org/en/v3.0/)
+- [PHPUnit Assertions](https://phpunit.de/manual/current/en/appendixes.assertions.html)
+
+---
+
+Winnie Lin - GitHub: [https://github.com/onecentlin](https://github.com/onecentlin)
