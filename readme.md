@@ -91,6 +91,13 @@ Scenario: Visit Homepage
 ./vendor/bin/behat --append-snippets
 ```
 
+## FAQ:
+
+- Encounter error message: The text "Laravel 5" was not found anywhere in the text of the current page.<br>Execute follow command:
+
+```
+php artisan config:cache
+```
 
 ## Learning Reference:
 
