@@ -77,6 +77,14 @@ Scenario: Visit Homepage
 ./vendor/bin/behat
 ```
 
+### Show accept mink extension definition
+
+```
+./vendor/bin/behat -dl
+```
+
+![behat mink definition list](screenshots/behat-dl.png)
+
 ### Append Snippets
 
 ```
