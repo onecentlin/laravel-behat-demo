@@ -1,6 +1,8 @@
-defalut:
+default:
     extensions:
-        Laracasts\Behat\ServiceContainer\LaravelExtension: ~
+        Laracasts\Behat\ServiceContainer\BehatExtension: ~
+            # ~ means default
+            # env_path: .evn.behat
         Behat\MinkExtension\ServiceContainer\MinkExtension:
             default_session: laravel
             laravel: ~
